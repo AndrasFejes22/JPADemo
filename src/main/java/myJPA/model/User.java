@@ -1,20 +1,20 @@
 package myJPA.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users", schema = "catalogs")
 public class User {
 
     @Id
-    private long id;
+    private long id;  // @Id: megjelöli, hogy meklyik az az oszlop ami az elsödleges kulcsot jelöli
 
     //@Column(name ="username")//**VAGY így bejelöljük
     private String username;
+
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
     private User() { //erre a JPA-nak van szüksége, szól is ha nincs: "ERROR: no default constructor", private: jelezzük, hogy a Hibernate-nak van
 
@@ -42,11 +42,20 @@ public class User {
         this.username = username;
     }
 
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", status=" + status +
                 '}';
     }
 }
