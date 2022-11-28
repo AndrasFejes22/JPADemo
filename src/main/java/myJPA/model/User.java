@@ -17,8 +17,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @Column(name = "created_at")
+
+    @Column(name = "created_at", precision = 28, length = 10)
     private ZonedDateTime createdAt;
+
+    private transient boolean loggedIn; // nem egy perzisztens mező, nem is jelenik meg a lekérdezésben vagy:
+
+    @Transient
+    private boolean isActive;
 
     private User() { //erre a JPA-nak van szüksége, szól is ha nincs: "ERROR: no default constructor", private: jelezzük, hogy a Hibernate-nak van
 
@@ -64,11 +70,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "User [" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", status=" + status +
                 ", createdAt=" + createdAt +
-                '}';
+                ']';
     }
 }
