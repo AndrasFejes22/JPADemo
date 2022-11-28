@@ -2,6 +2,7 @@ package myJPA.model;
 
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "users", schema = "catalogs")
@@ -15,6 +16,9 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+
+    @Column(name = "created_at")
+    private ZonedDateTime createdAt;
 
     private User() { //erre a JPA-nak van szüksége, szól is ha nincs: "ERROR: no default constructor", private: jelezzük, hogy a Hibernate-nak van
 
@@ -50,12 +54,21 @@ public class User {
         this.status = status;
     }
 
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", status=" + status +
+                ", createdAt=" + createdAt +
                 '}';
     }
 }
