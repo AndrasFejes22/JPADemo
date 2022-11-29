@@ -23,7 +23,7 @@ public class User {
 
     private transient boolean loggedIn; // nem egy perzisztens mező, nem is jelenik meg a lekérdezésben vagy:
 
-    @Transient
+    @Transient // a kulcsszó csak példányváltozóra rakható, az annotáció meg kb mindenhova
     private boolean isActive;
 
     private User() { //erre a JPA-nak van szüksége, szól is ha nincs: "ERROR: no default constructor", private: jelezzük, hogy a Hibernate-nak van
