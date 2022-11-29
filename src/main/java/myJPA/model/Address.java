@@ -13,7 +13,7 @@ public class Address  implements Serializable {
 
     private String street;
 
-    //@Column(name = house_number)
+    @Column(name = "house_number")
     private int houseNumber;
 
     public Address () {}

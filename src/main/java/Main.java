@@ -7,7 +7,7 @@ public class Main {
         UserDao userDao = new UserDao();
         //UserDao userDao2 = new UserDao();
 
-        User user = userDao.getUserBId(4L);
+        User user = userDao.getUserBId(2L);
         User user2 = userDao.getUserBId(5L);
         User user3 = userDao.getUserBId(1L);
 

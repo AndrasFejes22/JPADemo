@@ -21,10 +21,19 @@ public class User {
     @Column(name = "created_at", precision = 28, length = 10)
     private ZonedDateTime createdAt;
 
+    @Embedded
+    private Address address;
+
     private transient boolean loggedIn; // nem egy perzisztens mező, nem is jelenik meg a lekérdezésben vagy:
 
+    /*
     @Transient // a kulcsszó csak példányváltozóra rakható, az annotáció meg kb mindenhova
     private boolean isActive;
+    */
+
+    public Address getAddress() {
+        return address;
+    }
 
     private User() { //erre a JPA-nak van szüksége, szól is ha nincs: "ERROR: no default constructor", private: jelezzük, hogy a Hibernate-nak van
 
@@ -70,11 +79,13 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [" +
+        return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", status=" + status +
                 ", createdAt=" + createdAt +
-                ']';
+                ", address=" + address +
+                ", loggedIn=" + loggedIn +
+                '}';
     }
 }
