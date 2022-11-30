@@ -18,6 +18,8 @@ public class Address  implements Serializable {
 
     public Address () {}
 
+    // getters and setters Hibernate does not use them!
+
     public String getCity() {
         return city;
     }
