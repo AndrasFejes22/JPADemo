@@ -7,7 +7,7 @@ import java.time.ZonedDateTime;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         UserDao userDao = new UserDao();
         //UserDao userDao2 = new UserDao();
 
@@ -21,17 +21,17 @@ public class Main {
 
         User newUser = newUser();
 
-        //userDao.c
+        userDao.createUser(newUser);
     }
 
     private static User newUser(){
         User newUser = new User();
-        newUser.setUsername("Pista");
-        newUser.setStatus(UserStatus.PENDING);
+        newUser.setUsername("John_Doe");
+        newUser.setStatus(UserStatus.ACTIVE);
         newUser.setCreatedAt(ZonedDateTime.now());
         Address address = new Address();
-        address.setCity("Miskolc");
-        address.setStreet("Szerencsi");
+        address.setCity("Texas");
+        address.setStreet("Red River");
         address.setHouseNumber(8);
         newUser.setAddress(address);
         return newUser;

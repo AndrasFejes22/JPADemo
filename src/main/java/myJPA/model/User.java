@@ -6,12 +6,11 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "users", schema = "catalogs")
-@SequenceGenerator(name = "userIdGenerator", sequenceName = "users_seq", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "userIdGenerator", sequenceName = "users_seq", schema = "catalogs", initialValue = 1, allocationSize = 1)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIdGenerator")
-
     private long id;  // @Id: megjelöli, hogy melyik az az oszlop ami az elsödleges kulcsot jelöli
 
     //@Column(name ="username")//**VAGY így bejelöljük

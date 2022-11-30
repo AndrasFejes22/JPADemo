@@ -4,6 +4,7 @@ import myJPA.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class UserDao {
@@ -19,5 +20,32 @@ public class UserDao {
     public User getUserBId(Long id) {
         EntityManager entityManager = emf.createEntityManager();
         return entityManager.find(User.class, id);
+    }
+
+    public User createUser(User user) throws Exception {
+
+        EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+
+        try {
+            entityManager = emf.createEntityManager();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(user);
+            transaction.commit();
+
+        }catch(Exception e) {
+            if(transaction != null && transaction.isActive()){
+                transaction.rollback();
+            }
+            throw e;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            //entityManager.close();
+            //entityManager.close();
+        }
+        return user;
     }
 }
