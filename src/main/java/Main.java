@@ -11,17 +11,22 @@ public class Main {
         UserDao userDao = new UserDao();
         //UserDao userDao2 = new UserDao();
 
-        User user = userDao.getUserBId(2L);
-        User user2 = userDao.getUserBId(5L);
-        User user3 = userDao.getUserBId(1L);
-
+        User user = userDao.getUserBId(1L);
         System.out.println(user);
+
+        user.getRoles().add("TEST");
+        /*
+        User user2 = userDao.getUserBId(5L);
+        User user3 = userDao.getUserBId(2L);
+
+
         System.out.println(user2);
         System.out.println(user3);
 
         User newUser = newUser();
 
         userDao.createUser(newUser);
+        */
     }
 
     private static User newUser(){

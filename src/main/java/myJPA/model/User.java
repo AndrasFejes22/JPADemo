@@ -27,7 +27,7 @@ public class User {
     @Embedded
     public Address address;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", schema = "catalogs", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_name")
     private Set<String> roles;
