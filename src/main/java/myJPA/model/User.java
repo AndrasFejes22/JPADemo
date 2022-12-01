@@ -3,6 +3,7 @@ package myJPA.model;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "catalogs")
@@ -25,6 +26,11 @@ public class User {
 
     @Embedded
     public Address address;
+
+    @ElementCollection
+    @CollectionTable(name = "user_roles", schema = "catalogs", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role_name")
+    private Set<String> roles;
 
     private transient boolean loggedIn; // nem egy perzisztens mező, nem is jelenik meg a lekérdezésben vagy:
 
@@ -83,15 +89,20 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", status=" + status +
-                ", createdAt=" + createdAt +
-                ", address=" + address +
-                ", loggedIn=" + loggedIn +
+                ", roles=" + roles +
                 '}';
     }
 }
