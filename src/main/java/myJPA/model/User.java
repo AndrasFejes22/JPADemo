@@ -3,6 +3,8 @@ package myJPA.model;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -14,7 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIdGenerator")
     private long id;  // @Id: megjelöli, hogy melyik az az oszlop ami az elsödleges kulcsot jelöli
 
-    //@Column(name ="username")//**VAGY így bejelöljük
+    @Column(name ="username")//**VAGY így bejelöljük
     private String username;
 
     @Enumerated(EnumType.STRING)
@@ -30,9 +32,24 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", schema = "catalogs", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_name")
-    private Set<String> roles;
+    @OrderColumn(name = "ordinal") //"megmondtuk a JPA providernek, hogy ez egy rendezett lista"
+    private List<String> roles;
+
+    // Map:
+    /*
+    @Column(name = "role_name")
+    @MapKeyColumn(name = "ordinal")
+    private Map<Integer, String> roles;
+    */
 
     private transient boolean loggedIn; // nem egy perzisztens mező, nem is jelenik meg a lekérdezésben vagy:
+
+    public User(String username, UserStatus status, ZonedDateTime now) {
+        this.username = username;
+        this.status = status;
+        this.createdAt = now;
+
+    }
 
     /*
     @Transient // a kulcsszó csak példányváltozóra rakható, az annotáció meg kb mindenhova
@@ -89,11 +106,11 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public Set<String> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 
@@ -102,7 +119,11 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", roles=" + roles +
+                ", status=" + status +
                 '}';
+    }
+    
+    public static User user (String username){
+        return new User(username, UserStatus.PENDING, ZonedDateTime.now());
     }
 }
