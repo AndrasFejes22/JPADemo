@@ -22,7 +22,7 @@ public class UserDao {
         return entityManager.find(User.class, id);
     }
 
-    public User createUser(User user) throws Exception {
+    public User create(User user) throws Exception {
 
         EntityManager entityManager = null;
         EntityTransaction transaction = null;
@@ -47,7 +47,7 @@ public class UserDao {
         return user;
     }
 
-    public User updateUser(User user) throws Exception {
+    public User update(User user) throws Exception {
 
         EntityManager entityManager = null;
         EntityTransaction transaction = null;

@@ -120,9 +120,13 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", status=" + status +
+                ", createdAt=" + createdAt +
+                ", address=" + address +
+                ", roles=" + roles +
+                ", loggedIn=" + loggedIn +
                 '}';
     }
-    
+
     public static User user (String username){
         return new User(username, UserStatus.PENDING, ZonedDateTime.now());
     }

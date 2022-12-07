@@ -15,6 +15,40 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        // DAO:
+
+        UserDao userDao = new UserDao();
+        User user = userDao.getUserBId(8L);
+        System.out.println(user);
+
+
+        //user.getRoles().add("TEST2"); // így sql oldali "seve" pl sql update nélkül a db-ben nincs változás
+
+        //Set<String> set = new HashSet<String>(); // ha itt Set<MyClass> van akkor kell equals, és hashcode!
+        //set.add("TEST2");
+
+        //user.setRoles(set); // ezzel majd mi legyen?
+
+        //System.out.println(user);
+
+        /*
+        User user2 = userDao.getUserBId(5L);
+        User user3 = userDao.getUserBId(2L);
+
+
+        System.out.println(user2);
+        System.out.println(user3);
+
+        User newUser = newUser();
+
+        userDao.createUser(newUser);
+        */
+
+
+        /*
+        //////////////////////////// Persist/EntityManager /////////////////////////////
+
+
         // Persist/EntityManager
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("blogs-pu");
@@ -28,7 +62,7 @@ public class Main {
         entityManager.persist(user1); // ez így nem kerül be a db-be, csak a "Hibernate felkésszül rá" (Pl. uj id-t ad neki)
         System.out.println("user1: " + user1);
         entityTransaction.commit();
-        */
+
 
 
         User foundUser = entityManager.find(User.class, 5L);
@@ -65,38 +99,6 @@ public class Main {
         entityTransaction.commit();
         entityManager.refresh(anotherUser); //??
         System.out.println("anotherUser_after: "+anotherUser);
-
-
-
-
-        // DAO:
-
-        UserDao userDao = new UserDao();
-        //UserDao userDao2 = new UserDao();
-
-        //User user = userDao.getUserBId(1L);
-
-
-        //user.getRoles().add("TEST2"); // így sql oldali "seve" pl sql update nélkül a db-ben nincs változás
-
-        //Set<String> set = new HashSet<String>(); // ha itt Set<MyClass> van akkor kell equals, és hashcode!
-        //set.add("TEST2");
-
-        //user.setRoles(set); // ezzel majd mi legyen?
-
-        //System.out.println(user);
-
-        /*
-        User user2 = userDao.getUserBId(5L);
-        User user3 = userDao.getUserBId(2L);
-
-
-        System.out.println(user2);
-        System.out.println(user3);
-
-        User newUser = newUser();
-
-        userDao.createUser(newUser);
         */
     }
 
