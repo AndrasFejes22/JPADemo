@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 
 public class UserDao {
 
-    private static EntityManagerFactory emf; //eza egy JPA-s interface
+    private static EntityManagerFactory emf; //ez egy JPA-s interface
 
     public UserDao() {
         this.emf = Persistence.createEntityManagerFactory("blogs-pu");
@@ -43,9 +43,33 @@ public class UserDao {
             if (entityManager != null) {
                 entityManager.close();
             }
-            //entityManager.close();
-            //entityManager.close();
         }
         return user;
     }
+
+    public User updateUser(User user) throws Exception {
+
+        EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+
+        try {
+            entityManager = emf.createEntityManager();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.merge(user);
+            transaction.commit();
+
+        }catch(Exception e) {
+            if(transaction != null && transaction.isActive()){
+                transaction.rollback();
+            }
+            throw e;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+        return user;
+    }
+
 }
