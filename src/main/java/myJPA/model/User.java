@@ -29,11 +29,11 @@ public class User {
     @Embedded
     public Address address;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER) //EAGER: nagyobb gráfoknál belassulhat, ezért ez default: LAZY!
     @CollectionTable(name = "user_roles", schema = "catalogs", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_name")
-    @OrderColumn(name = "ordinal") //"megmondtuk a JPA providernek, hogy ez egy rendezett lista"
-    private List<String> roles;
+    //@OrderColumn(name = "ordinal") //"megmondtuk a JPA providernek, hogy ez egy rendezett lista"
+    private Set<String> roles;
 
     // Map:
     /*
@@ -42,7 +42,7 @@ public class User {
     private Map<Integer, String> roles;
     */
 
-    private transient boolean loggedIn; // nem egy perzisztens mező, nem is jelenik meg a lekérdezésben vagy:
+    private transient boolean loggedIn; // nem egy perzisztens mező, nem is jelenik meg a lekérdezésben
 
     public User(String username, UserStatus status, ZonedDateTime now) {
         this.username = username;
@@ -106,11 +106,11 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public List<String> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 

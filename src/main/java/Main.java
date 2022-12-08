@@ -18,8 +18,17 @@ public class Main {
         // DAO:
 
         UserDao userDao = new UserDao();
-        User user = userDao.getUserBId(8L);
+        User user = userDao.getUserBId(7L);
         System.out.println(user);
+        user.getRoles().add("TEST2"); // el kell save-lni --> update!
+        //userDao.update(user);
+
+        user.getRoles().remove("USER");
+        userDao.update(user);
+
+        // Demonstrate @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIdGenerator"):
+        //User newUser = newUser("Nagy Bori");
+        //userDao.create(newUser);
 
 
         //user.getRoles().add("TEST2"); // így sql oldali "seve" pl sql update nélkül a db-ben nincs változás
@@ -39,9 +48,7 @@ public class Main {
         System.out.println(user2);
         System.out.println(user3);
 
-        User newUser = newUser();
 
-        userDao.createUser(newUser);
         */
 
 
@@ -102,15 +109,15 @@ public class Main {
         */
     }
 
-    private static User newUser(){
+    private static User newUser(String name){
         User newUser = new User();
-        newUser.setUsername("John_Doe");
+        newUser.setUsername(name);
         newUser.setStatus(UserStatus.ACTIVE);
         newUser.setCreatedAt(ZonedDateTime.now());
         Address address = new Address();
-        address.setCity("Texas");
-        address.setStreet("Red River");
-        address.setHouseNumber(8);
+        address.setCity("Little Rock");
+        address.setStreet("Clear Water");
+        address.setHouseNumber(18);
         newUser.setAddress(address);
         return newUser;
     }
