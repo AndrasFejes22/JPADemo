@@ -26,8 +26,13 @@ public class User {
     @Column(name = "created_at", precision = 28, length = 10)
     private ZonedDateTime createdAt;
 
-    @Embedded
-    public Address address;
+    //@Embedded
+    @ElementCollection(fetch = FetchType.EAGER) //EAGER: nagyobb gráfoknál belassulhat, ezért ez default: LAZY!
+    @CollectionTable(name = "user_adresses", schema = "catalogs", joinColumns = @JoinColumn(name = "user_id"))
+    //@Column(name = "role_name")
+    public Set<Address> addresses;
+
+    // Entity as Set : equal and hash code are mandatory!!!
 
     @ElementCollection(fetch = FetchType.EAGER) //EAGER: nagyobb gráfoknál belassulhat, ezért ez default: LAZY!
     @CollectionTable(name = "user_roles", schema = "catalogs", joinColumns = @JoinColumn(name = "user_id"))
@@ -56,13 +61,7 @@ public class User {
     private boolean isActive;
     */
 
-    public Address getAddress() {
-        return address;
-    }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
     public User() { //erre a JPA-nak van szüksége, szól is ha nincs: "ERROR: no default constructor", private: jelezzük, hogy a Hibernate-nak van
 
@@ -114,16 +113,22 @@ public class User {
         this.roles = roles;
     }
 
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", status=" + status +
-                ", createdAt=" + createdAt +
-                ", address=" + address +
-                ", roles=" + roles +
-                ", loggedIn=" + loggedIn +
+                ", addresses=" + addresses +
                 '}';
     }
 

@@ -18,13 +18,13 @@ public class Main {
         // DAO:
 
         UserDao userDao = new UserDao();
-        User user = userDao.getUserBId(7L);
+        User user = userDao.getUserBId(4L);
         System.out.println(user);
-        user.getRoles().add("TEST2"); // el kell save-lni --> update!
+        //user.getRoles().add("TEST2"); // el kell save-lni --> update!
         //userDao.update(user);
 
-        user.getRoles().remove("USER");
-        userDao.update(user);
+        //user.getRoles().remove("USER");
+        //userDao.update(user);
 
         // Demonstrate @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIdGenerator"):
         //User newUser = newUser("Nagy Bori");
@@ -118,7 +118,7 @@ public class Main {
         address.setCity("Little Rock");
         address.setStreet("Clear Water");
         address.setHouseNumber(18);
-        newUser.setAddress(address);
+        //newUser.setAddress(address);
         return newUser;
     }
 }
